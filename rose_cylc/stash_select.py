@@ -27,7 +27,7 @@ def makeItems(items, dom, sec, pac, tim, use):
  num_items = len(items)
  for index in range(num_items):
    item_num = items[index]
-   each_string = "[namelist:umstash_streq({n})]\ndom_name='{d}'\nisec={s}\nitem={i}\npackage={p}\ntim_name='{t}'\nuse_name='{u}'\n"\
+   each_string = "[namelist:umstash_streq({n})]\ndom_name='{d}'\nisec={s}\nitem={i}\npackage='{p}'\ntim_name='{t}'\nuse_name='{u}'\n"\
                           .format(n=index+1, d=dom, s=sec, i=item_num, p=pac, t=tim, u=use)
    print(each_string)
 
