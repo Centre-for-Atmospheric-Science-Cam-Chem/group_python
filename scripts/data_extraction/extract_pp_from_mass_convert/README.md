@@ -1,6 +1,6 @@
 # Download pp file from MASS and convert to NetCDF files
 
-This folder contains scripts for streamlining data retrieval from MASS and converting pp files to NetCDF files.
+This folder contains scripts for streamlining data retrieval from MASS and converting pp files to NetCDF files. The script depends on other codes in `src/data` and `src/util`.
 
 This works on JASMIN [sci servers](https://help.jasmin.ac.uk/docs/interactive-computing/sci-servers/) (and any other servers with access to mass-cli).
 
@@ -17,7 +17,6 @@ Before executing `driver_download_pp_convert.sh`, user should edit `config.yaml`
 ### Steps for using the script
 
 1. Check prerequisites and job details
-
    - Check that there is a conda environment that has `iris` and `yaml` package. Module jaspy should have this by default.
    - Check for batch job compute allocation. See if user has account with QOS short at least. [See JASMIN documentation](https://help.jasmin.ac.uk/docs/batch-computing/how-to-submit-a-job/).
    - Note the details of Account and QOS which will be needed to set `config.yaml`
@@ -32,16 +31,15 @@ Before executing `driver_download_pp_convert.sh`, user should edit `config.yaml`
    vs480           mass                 mass
    vs480           shobu
    ```
+
    - Note the details of Account and QOS which will be needed to set `config.yaml`
 
 2. Edit or create `processing_queue.csv` file
-
    - This is for sbatch to parallelize the download for each stash. The file should contain 4 columns: `task_id`, `job_id`, `stream`, and `stash`. See `processing_queues/processing_queue.csv` for an example.
    - I find it helpful to create the csv in external point-and-click software like Excel/Google Sheets and export as csv files.
    - See [useful code snippets](#useful-code-snippets) for how to check the available stashes in a suite
 
 3. Edit `config.yaml`. This file sets how to run the script for each column of `processing_queue.csv`.
-
    - `job`:
      - `name`: "AAAAA" Job name for slurm. (Any string is fine; this is for user comment.)
      - `l_batch`: True/False. Must be True for now as the code only accept sbatch execution.
@@ -79,7 +77,6 @@ Before executing `driver_download_pp_convert.sh`, user should edit `config.yaml`
    ```
 
    This should spawn a master job, then the master job should spawn.
-
    - downloading: one array job for each row in the processing queue CSV file, as directed by array_range.
    - copying downloaded pp: one array job that depends on the completion of the downloading job
    - converting: one array job for stash. This then spawns one job for each pp file. There will be a lot of jobs.
@@ -152,19 +149,25 @@ for f in $(moo ls moose:crum/$jobid/*pp); do stream=$(echo $f| cut -d/ -f4 | cut
 
 This lists all stash items in each stream in separate text files.
 
-### Check the limit of each QOS 
-   
+### Check available nodes in LOTUS
+
+```bash
+  sinfo
+```
+
+### Check the limit of each QOS
+
 ```bash
    $ sacctmgr show qos format=name,priority,maxtrespj%20,maxtrespu%20,maxwall
-      Name   Priority              MaxTRES            MaxTRESPU     MaxWall 
----------- ---------- -------------------- -------------------- ----------- 
-  standard        500      cpu=16,mem=128G             cpu=4000  1-00:00:00 
-      long        350      cpu=16,mem=128G             cpu=1350  5-00:00:00 
-     short        550       cpu=8,mem=200G             cpu=2000    04:00:00 
-     debug        500                                    cpu=50    01:00:00 
-      dask        500                                    cpu=16             
-      mass        500                                                       
-      high        450     cpu=96,mem=1000G    cpu=576,mem=4500G  2-00:00:00 
+      Name   Priority              MaxTRES            MaxTRESPU     MaxWall
+---------- ---------- -------------------- -------------------- -----------
+  standard        500      cpu=16,mem=128G             cpu=4000  1-00:00:00
+      long        350      cpu=16,mem=128G             cpu=1350  5-00:00:00
+     short        550       cpu=8,mem=200G             cpu=2000    04:00:00
+     debug        500                                    cpu=50    01:00:00
+      dask        500                                    cpu=16
+      mass        500
+      high        450     cpu=96,mem=1000G    cpu=576,mem=4500G  2-00:00:00
 ```
 
 ---

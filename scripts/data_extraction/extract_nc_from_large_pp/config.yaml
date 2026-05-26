@@ -1,0 +1,30 @@
+# Configuration for STASH extraction from PP files
+# This YAML defines all the tasks to be processed
+
+# Job controls
+job:
+  name: "extract_stash"
+  l_batch: True
+  l_extract: True
+
+# SLURM settings
+slurm:
+  account: "acsis"                 # Set if required by your cluster
+  partition: "standard"            # or 'debug'
+  qos: "short"                     # Set if required by your cluster
+  time: "02:00:00"                 # Wall time per job
+  memory: "32G"                    # Memory per job
+  array_range: "1-7714"              # Adjust to match number of lines in processing_queue.csv
+
+# Script paths (relative to current working directory or absolute)
+paths:
+  python_script: "../../../src/data/read_extract_stash_in_pp_to_file.py"
+  processing_queue: "./processing_queue.csv"
+  stash_list: "./stash_list_add.txt"  # Reference STASH list to check against
+  output_nc: "/work/scratch-pw5/vs480/nc_files/"  # Output directory for extracted NetCDF files
+  yaml_to_shell: "../../../src/util/yaml_to_shell.py"    # adjust as needed
+  log_dir: "./log"
+
+# Python environment
+python:
+  module_load: "module load jaspy"  # Environment setup command

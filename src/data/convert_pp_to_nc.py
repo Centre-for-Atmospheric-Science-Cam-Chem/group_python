@@ -9,6 +9,9 @@ from datetime import datetime
 import STASH_fields_defs as def_STASH
 import sys
 
+# Future-proofing per warnings from iris 20260120
+iris.FUTURE.save_split_attrs = True
+
 pp_file_path = sys.argv[1]
 nc_file_path = sys.argv[2]
 

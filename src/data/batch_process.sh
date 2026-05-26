@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=dl_pp
+#SBATCH --job-name=MASS_extract
 #SBATCH --account=acsis
 #SBATCH --partition=debug # standard or debug
 #SBATCH --qos=debug
@@ -9,7 +9,7 @@
 #SBATCH --array=1-4 # edit to match the range in array_stream_stash.txt. This can select only the lines needed
 #SBATCH --mem=200000
 
-# driver script to batch download pp files using retrieve_stash.sh
+# driver script to batch extract pp files using retrieve_stash.sh
 # Note that command-line arguments to sbatch (like --job-name, --partition, etc.) 
 # override the preceeding #SBATCH directives in this script.
 
@@ -17,38 +17,38 @@
 
 ### DEFINE FUNCTIONS ##################################################################
 
-batch_retrieve_pp () {
+batch_extract_pp () {
 
-# Create download_dir and parent directories if they don't exist
-mkdir -p "$download_dir"
+# Create tmp_pp_dir and parent directories if they don't exist
+mkdir -p "$tmp_pp_dir"
 
 # Verify directory was created successfully
-if [[ ! -d "$download_dir" ]]; then
-    echo "Error: Failed to create directory $download_dir" >&2
+if [[ ! -d "$tmp_pp_dir" ]]; then
+    echo "Error: Failed to create directory $tmp_pp_dir" >&2
     exit 1
 fi
 
-echo "Created/verified directory: $download_dir"
+echo "Created/verified directory: $tmp_pp_dir"
 
 # submit to mass queue
 # SLURM job submission using config
-slurm_download_job_id=$(sbatch --parsable \
-        --job-name="$jobID $stash pp" \
+slurm_extract_job_id=$(sbatch --parsable \
+        --job-name="$jobID-$stash-pp" \
         --partition="mass" \
         --account="mass" \
         --qos="mass" \
-		--time="$DOWNLOAD_WALLTIME" \
-		--output="log/download_%x_%j.out" \
-		--error="log/download_%x_%j.err" \
+		--time="$EXTRACT_WALLTIME" \
+		--output="log/extract_%x_%j.out" \
+		--error="log/extract_%x_%j.err" \
         retrieve_stash.sh "$jobID" \
-        "$stream" "$stash" "$download_dir" \
-        "$DOWNLOAD_MAX_RETRIES" \
-        "$DOWNLOAD_QUERY_OPTIONS" )
+        "$stream" "$stash" "$tmp_pp_dir" \
+        "$EXTRACT_MAX_RETRIES" \
+        "$EXTRACT_QUERY_OPTIONS" )
 
-echo "Submitted MASS retrieval job with job ID: $slurm_download_job_id"
+echo "Submitted MASS extraction job with job ID: $slurm_extract_job_id"
 echo "jobID=$jobID; stream=$stream; stash=$stash"
 
-return "$slurm_download_job_id"
+return "$slurm_extract_job_id"
 }
 
 batch_convert_pp () {
@@ -75,9 +75,9 @@ batch_convert_pp () {
     sbatch_cmd+=" convert_one_stash_pp.sh \"$jobID\" \
         \"$stream\" \
         \"$stash\" \
-        \"$download_dir\" \
+        \"$tmp_pp_dir\" \
         \"$convert_dir\" \
-        \"$slurm_download_job_id\""
+        \"$slurm_extract_job_id\""
 
     # Submit the copy job and capture the job ID
     slurm_convert_job_id=$(eval "$sbatch_cmd")
@@ -138,39 +138,39 @@ stash=$(grep "^$SLURM_ARRAY_TASK_ID," "$processing_queue" | head -n1 | cut -d','
 
 
 # Internal variables
-# set download dir to tmp dir if downloading data or if copying data
-if [[ "$JOB_L_DOWNLOAD" = "True" || "$JOB_L_COPY_DOWNLOADED" = "True" ]]; then
-    download_dir="$PATH_TMP_DIR/pp_files/${jobID}/${stream}_${stash}"
-    mkdir -p "$download_dir"
+# set extract dir to tmp dir if extracting data or if copying data
+if [[ "$JOB_L_EXTRACT" = "True" || "$JOB_L_COPY_EXTRACTED" = "True" ]]; then
+    tmp_pp_dir="$PATH_TMP_DIR/pp_files/${jobID}/${stream}_${stash}"
+    mkdir -p "$tmp_pp_dir"
 fi
 
-# set download_dir and convert_dir if converting from pp
+# set tmp_pp_dir and convert_dir if converting from pp
 if [[ "$JOB_L_CONVERT" = "True"  || "$JOB_L_COPY_CONVERTED" = "True"  ]]; then
     convert_dir="$PATH_TMP_DIR/${CONVERT_FORMAT}_files/${jobID}/${stream}_${stash}"
     mkdir -p "$convert_dir"
 
-    # pp data has been downloaded and is in tmp
-    if [[ "$JOB_L_DOWNLOAD" = "False" &&  $CONVERT_L_USE_DOWNLOADED_SAVE_DIR = "False" ]]; then
-       download_dir="$PATH_TMP_DIR/pp_files/${jobID}/${stream}_${stash}"
+    # pp data has been extracted and is in tmp
+    if [[ "$JOB_L_EXTRACT" = "False" &&  $CONVERT_L_USE_EXTRACTED_SAVE_DIR = "False" ]]; then
+       tmp_pp_dir="$PATH_TMP_DIR/pp_files/${jobID}/${stream}_${stash}"
     
-    # pp data has been downloaded and saved to DOWNLOADED_DATA_DIR
-    elif [[ "$JOB_L_DOWNLOAD" = "False" && $CONVERT_L_USE_DOWNLOADED_SAVE_DIR = "True" ]]; then
-        download_dir="$PATH_DOWNLOADED_SAVE_DIR/pp_files/${jobID}/${stream}_${stash}"
+    # pp data has been extracted and saved to EXTRACTED_DATA_DIR
+    elif [[ "$JOB_L_EXTRACT" = "False" && $CONVERT_L_USE_EXTRACTED_SAVE_DIR = "True" ]]; then
+        tmp_pp_dir="$PATH_EXTRACTED_SAVE_DIR/pp_files/${jobID}/${stream}_${stash}"
     fi
 fi
 
-# Set download save dir
-if [[ "$JOB_L_COPY_DOWNLOADED" = "True" && -n "$PATH_DOWNLOADED_SAVE_DIR" ]]; then
-    downloaded_save_dir_full=$PATH_DOWNLOADED_SAVE_DIR/pp_files/${jobID}/${stream}_${stash}
-    copy_downloaded=True
+# Set extract save dir
+if [[ "$JOB_L_COPY_EXTRACTED" = "True" && -n "$PATH_EXTRACTED_SAVE_DIR" ]]; then
+    extracted_save_dir_full=$PATH_EXTRACTED_SAVE_DIR/pp_files/${jobID}/${stream}_${stash}
+    copy_extracted=True
 
-elif [[ "$JOB_L_COPY_DOWNLOADED" = "True" && -z "$PATH_DOWNLOADED_SAVE_DIR" ]]; then
-    echo "Error. Set to copy downloaded files but"
-    echo 'downloaded_save_dir is not set in config.yaml. Will not copy pp files'
-    copy_downloaded=False
+elif [[ "$JOB_L_COPY_EXTRACTED" = "True" && -z "$PATH_EXTRACTED_SAVE_DIR" ]]; then
+    echo "Error. Set to copy extracted files but"
+    echo 'extracted_save_dir is not set in config.yaml. Will not copy pp files'
+    copy_extracted=False
 
 else
-    copy_downloaded=False
+    copy_extracted=False
 fi
 
 # Set converted save dir
@@ -193,38 +193,38 @@ fi
 echo "Start submission: $jobID $stream $stash"
 echo ""
 
-# If download only and not convert
-if [[ "$JOB_L_DOWNLOAD" = "True" ]]; then
-	batch_retrieve_pp
+# If extract only and not convert
+if [[ "$JOB_L_EXTRACT" = "True" ]]; then
+	batch_extract_pp
 	echo ""
 
-	echo "Submitted downloading with slurm_download_job_id=$slurm_download_job_id"
+	echo "Submitted extracting with slurm_extract_job_id=$slurm_extract_job_id"
     echo ""
 fi
 
-# Copy pp files after download
-if [[ "$JOB_L_DOWNLOAD" = "True" && $copy_downloaded = 'True' ]]; then
-	batch_copy "$download_dir" "$downloaded_save_dir_full" "$slurm_download_job_id"
+# Copy pp files after extract
+if [[ "$JOB_L_EXTRACT" = "True" && $copy_extracted = 'True' ]]; then
+	batch_copy "$tmp_pp_dir" "$extracted_save_dir_full" "$slurm_extract_job_id"
 fi
 
-# If copying downloaded files without actually downloading files
-if [[ "$JOB_L_DOWNLOAD" = "False" && $copy_downloaded = 'True' ]]; then
-    batch_copy "$download_dir" "$downloaded_save_dir_full"
+# If copying extracted files without actually extracting files
+if [[ "$JOB_L_EXTRACT" = "False" && $copy_extracted = 'True' ]]; then
+    batch_copy "$tmp_pp_dir" "$extracted_save_dir_full"
 fi
 
 
-# If download then convert
-if [[ "$JOB_L_DOWNLOAD" = "True" && "$JOB_L_CONVERT" = "True" ]]; then
+# If extract then convert
+if [[ "$JOB_L_EXTRACT" = "True" && "$JOB_L_CONVERT" = "True" ]]; then
 
-    batch_convert_pp "$slurm_download_job_id"
+    batch_convert_pp "$slurm_extract_job_id"
 	echo "Submitted converting with slurm_convert_job_id=$slurm_convert_job_id"
-	echo "This job depends on slurm_download_job_id=$slurm_download_job_id"
+	echo "This job depends on slurm_extract_job_id=$slurm_extract_job_id"
     echo ""
 
 fi
 
 # Just convert
-if [[ "$JOB_L_DOWNLOAD" = "False" && "$JOB_L_CONVERT" = "True" ]]; then
+if [[ "$JOB_L_EXTRACT" = "False" && "$JOB_L_CONVERT" = "True" ]]; then
 
     batch_convert_pp
 	echo "Submitted converting with slurm_convert_job_id=$slurm_convert_job_id"
@@ -237,7 +237,7 @@ if [[ "$JOB_L_CONVERT" = "True" &&  $copy_converted = 'True' ]]; then
 	batch_copy "$convert_dir" "$converted_save_dir_full" "$slurm_convert_job_id"
 fi
 
-# If copying converted files without actually downloading files
+# If copying converted files without actually extracting files
 if [[  "$JOB_L_CONVERT" = "False" && $copy_converted = 'True' ]]; then
     batch_copy "$convert_dir" "$converted_save_dir_full"
 fi
