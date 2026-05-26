@@ -16,7 +16,7 @@ slurm:
   memory: "2000"
 
 jobs:
-  array_range: "10,13,17"
+  array_range: "55-72"
 
 # Paths
 path:
