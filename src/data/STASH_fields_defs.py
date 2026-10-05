@@ -89,7 +89,7 @@ def UKCA_callback(cube, field, filename):
         cube.rename(name="N2O5")
 
     if cube.attributes["STASH"] == "m01s34i006":
-        cube.rename(name="HONO2")
+        cube.rename(name="HO2NO2")
 
     if cube.attributes["STASH"] == "m01s34i008":
         cube.rename(name="H2O2")

@@ -74,3 +74,16 @@ task_id,job_id,stream,stashID,details
 73,u-eb176,apm.pp,50463,N2O5+HBr
 74,u-eb176,apm.pp,50464,PSC1
 75,u-eb176,apm.pp,50465,PSC2
+76,u-eb176,apm.pp,50062,airmass
+77,u-eb176,apm.pp,50063,trop_mask
+78,u-eb176,apm.pp,34043,Cl2O2
+79,u-eb176,apm.pp,34051,HOCl
+80,u-eb176,apm.pp,34044,OClO
+81,u-eb176,apm.pp,34047,BrCl
+82,u-eb176,apm.pp,34048,BrONO2
+83,u-eb176,apm.pp,34045,Br
+84,u-eb176,apm.pp,34994,BrO
+85,u-eb176,apm.pp,34052,HBr
+86,u-eb176,apm.pp,34053,HOBr
+87,u-eb176,apm.pp,34099,Lumped Br as BrO
+88,u-eb176,apm.pp,34997,O(1D)

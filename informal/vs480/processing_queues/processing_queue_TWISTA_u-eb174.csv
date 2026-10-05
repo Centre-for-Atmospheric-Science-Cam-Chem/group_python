@@ -74,3 +74,25 @@ task_id,job_id,stream,stashID,details
 73,u-eb174,apm.pp,50463,N2O5+HBr
 74,u-eb174,apm.pp,50464,PSC1
 75,u-eb174,apm.pp,50465,PSC2
+76,u-eb174,apm.pp,50062,airmass
+77,u-eb174,apm.pp,50063,trop_mask
+78,u-eb174,apm.pp,34043,Cl2O2
+79,u-eb174,apm.pp,34051,HOCl
+80,u-eb174,apm.pp,34044,OClO
+81,u-eb174,apm.pp,34047,BrCl
+82,u-eb174,apm.pp,34048,BrONO2
+83,u-eb174,apm.pp,34045,Br
+84,u-eb174,apm.pp,34994,BrO
+85,u-eb174,apm.pp,34052,HBr
+86,u-eb174,apm.pp,34053,HOBr
+87,u-eb174,apm.pp,34099,Lumped Br as BrO
+88,u-eb174,apm.pp,34997,O(1D)
+89,u-eb174,apm.pp,34013,HONO
+90,u-eb174,apm.pp,34024,PPAN
+91,u-eb174,apm.pp,34029,ISON
+92,u-eb174,apm.pp,34035,NALD
+93,u-eb174,apm.pp,34058,N MASS MIXING RATIO AFTER TIMESTEP
+94,u-eb174,apm.pp,34017,PAN MASS MIXING RATIO AFTER TSTEP
+95,u-eb174,apm.pp,34032,MPAN MASS MIXING RATIO AFTER TSTEP
+96,u-eb174,apm.pp,34025,MeONO2 MASS MIXING RATIO AFTER TSTEP
+97,u-eb174,apm.pp,34098,LUMPED N (as NO2) MMR AFTER TIMESTEP

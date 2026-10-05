@@ -1,0 +1,93 @@
+task_id,job_id,stream,stashID,details
+1,u-bv828,apy.pp,16004,Temperature (theta levels)
+2,u-bv828,apy.pp,30453,Tropopause height
+3,u-bv828,apy.pp,407,"Pressure (rho levels, after timestep)"
+4,u-bv828,apy.pp,408,"Pressure (theta levels, after timestep)"
+5,u-bv828,apy.pp,409,Surface pressure (after timestep)
+6,u-bv828,apy.pp,2,U component of wind (after timestep) 
+7,u-bv828,apy.pp,3,V component of wind (after timestep)
+8,u-bv828,apy.pp,150,W component of wind (after timestep)
+9,u-bv828,apy.pp,2204,Total cloud amount in LW ratdiation
+10,u-bv828,apy.pp,10,Specific humidity (after timestep)
+11,u-bv828,apy.pp,34001,O3 mass mixing ratio
+12,u-bv828,apy.pp,34059,O(3P) mass mixing ratio
+13,u-bv828,apy.pp,34997,O(1D) mass mixing ratio
+14,u-bv828,apy.pp,34081,OH mass mixing ratio
+15,u-bv828,apy.pp,34082,HO2 mass mixing ratio
+16,u-bv828,apy.pp,34008,H2O2 mass mixing ratio
+17,u-bv828,apy.pp,34080,H mass mixing ratio
+18,u-bv828,apy.pp,34070,H2 mass mixing ratio
+19,u-bv828,apy.pp,34055,CFCl3 (CFC-11) mass mixing ratio
+20,u-bv828,apy.pp,34056,CF2Cl2 (CFC-12) mass mixing ratio
+21,u-bv828,apy.pp,34041,Cl mass mixing ratio
+22,u-bv828,apy.pp,34042,ClO mass mixing ratio
+23,u-bv828,apy.pp,34054,ClONO2 mass mixing ratio
+24,u-bv828,apy.pp,34051,HOCl mass mixing ratio
+25,u-bv828,apy.pp,34992,HCl mass mixing ratio
+26,u-bv828,apy.pp,34045,Br mass mixing ratio
+27,u-bv828,apy.pp,34994,BrO mass mixing ratio
+28,u-bv828,apy.pp,34048,BrONO2 mass mixing ratio
+29,u-bv828,apy.pp,34053,HOBr mass mixing ratio
+30,u-bv828,apy.pp,34052,HBr mass mixing ratio
+31,u-bv828,apy.pp,34049,N2O mass mixing ratio
+32,u-bv828,apy.pp,34002,NO mass mixing ratio
+33,u-bv828,apy.pp,34996,NO2 mass mixing ratio
+34,u-bv828,apy.pp,34007,HONO2 (HNO3) mass mixing ratio
+35,u-bv828,apy.pp,34017,PAN mass mixing ratio
+36,u-bv828,apy.pp,34006,HO2NO2 mass mixing ratio
+37,u-bv828,apy.pp,34003,NO3 mass mixing ratio
+38,u-bv828,apy.pp,34005,N2O5 mass mixing ratio
+39,u-bv828,apy.pp,34058,N mass mixing ratio
+40,u-bv828,apy.pp,34009,CH4 mass mixing ratio
+41,u-bv828,apy.pp,30467,CO2 mass mixing ratio
+42,u-bv828,apy.pp,34011,HCHO mass mixing ratio
+43,u-bv828,apy.pp,34010,CO mass mixing ratio
+44,u-bv828,apy.pp,34027,Isoprene (C5H8) mass mixing ratio
+45,u-bv828,apy.pp,34071,DMS mass mixing ratio
+46,u-bv828,apy.pp,34072,SO2 mass mixing ratio
+47,u-bv828,apy.pp,34073,H2SO4 mass mixing ratio
+48,u-bv828,apy.pp,34078,COS mass mixing ratio
+49,u-bv828,apy.pp,34013,HONO mass mixing ratio
+50,u-bv828,apy.pp,34024,PPAN mass mixing ratio
+51,u-bv828,apy.pp,34025,MeONO2 mass mixing ratio
+52,u-bv828,apy.pp,34029,ISON mass mixing ratio
+53,u-bv828,apy.pp,34032,MPAN mass mixing ratio
+54,u-bv828,apy.pp,34035,NALD mass mixing ratio
+55,u-bv828,apy.pp,50101,STRAT O3 PROD: O2+PHOTON->O(3P)+O(3P
+56,u-bv828,apy.pp,50102,STRAT O3 PROD: O2+PHOTON->O(3P)+O(1D
+57,u-bv828,apy.pp,50103,STRAT O3 PROD: HO2 + NO
+58,u-bv828,apy.pp,50104,STRAT O3 PROD: MeOO + NO
+59,u-bv828,apy.pp,50111,STRAT O3 LOSS: Cl2O2 + PHOTON
+60,u-bv828,apy.pp,50112,STRAT O3 LOSS: BrO + ClO
+61,u-bv828,apy.pp,50113,STRAT O3 LOSS: HO2 + O3
+62,u-bv828,apy.pp,50114,STRAT O3 LOSS: ClO + HO2
+63,u-bv828,apy.pp,50115,STRAT O3 LOSS: BrO + HO2
+64,u-bv828,apy.pp,50116,STRAT O3 LOSS: O(3P) + ClO
+65,u-bv828,apy.pp,50117,STRAT O3 LOSS: O(3P) + NO2
+66,u-bv828,apy.pp,50118,STRAT O3 LOSS: O(3P) + HO2
+67,u-bv828,apy.pp,50119,STRAT O3 LOSS: O3 + H
+68,u-bv828,apy.pp,50120,STRAT O3 LOSS: O(3P) + O3
+69,u-bv828,apy.pp,50121,STRAT O3 LOSS: NO3 + PHOTON
+70,u-bv828,apy.pp,50122,STRAT O3 LOSS: O(1D) + H2O
+71,u-bv828,apy.pp,50123,STRAT O3 LOSS: HO2 + NO3
+72,u-bv828,apy.pp,50124,STRAT O3 LOSS: OH + NO3
+73,u-bv828,apy.pp,50125,STRAT O3 LOSS: NO3 + HCHO
+74,u-bv828,apy.pp,50126,STRAT O3 LOSS: BrO + O(3P)
+75,u-bv828,apy.pp,50847,OH + NO2 -> HONO2 flux
+76,u-bv828,apy.pp,50001,Ox PROD: HO2+NO
+77,u-bv828,apy.pp,50002,Ox PROD: MeOO+NO
+78,u-bv828,apy.pp,50003,Ox PROD: NO+RO2
+79,u-bv828,apy.pp,50004,Ox PROD: OH+INORGANIC ACID
+80,u-bv828,apy.pp,50005,Ox PROD: OH+ORGANIC NITRATE
+81,u-bv828,apy.pp,50006,Ox PROD: ORGANIC NITRATE PHOTOLYSIS
+82,u-bv828,apy.pp,50007,Ox PROD: OH + PAN-TYPE REACTIONS
+83,u-bv828,apy.pp,50011,Ox LOSS: O(1D)+H2O
+84,u-bv828,apy.pp,50012,Ox LOSS: MINOR LOSS REACTIONS
+85,u-bv828,apy.pp,50013,Ox LOSS: HO2+O3
+86,u-bv828,apy.pp,50014,Ox LOSS: OH+O3
+87,u-bv828,apy.pp,50015,Ox LOSS: O3+ALKENE
+88,u-bv828,apy.pp,50016,Ox LOSS: N2O5+H2O
+89,u-bv828,apy.pp,50017,Ox LOSS: NO3 CHEMICAL LOSS
+90,u-bv828,apy.pp,50021,Ox BUDGET: O3 DRY DEPOSITION (3D)
+91,u-bv828,apy.pp,50022,Ox BUDGET: NOy DRY DEPOSITION (3D)
+92,u-bv828,apy.pp,50031,Ox BUDGET: NOy WET DEPOSITION (3D)

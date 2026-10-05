@@ -16,7 +16,7 @@ slurm:
   memory: "2000"
 
 jobs:
-  array_range: "1-76"
+  array_range: "80-88"
 
 # Paths
 path:
@@ -28,9 +28,9 @@ path:
 # MASS extracting options
 extract:
   l_extra_query: False
-  max_retries: 2 # optional
-  walltime: "4:00:00"
-  # query_options: "./query_options.txt" # optional. Use only if l_extra_query=True
+  max_retries: 3 # optional
+  walltime: "2:00:00"
+  # query_options: "/home/users/vs480/git/group_python/scripts/data_extraction/extract_pp_from_mass_convert/query_options.txt" # optional. Use only if l_extra_query=True
 
 # Processing options
 convert:
