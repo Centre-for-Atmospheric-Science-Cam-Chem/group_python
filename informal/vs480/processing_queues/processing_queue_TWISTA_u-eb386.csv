@@ -87,3 +87,25 @@ task_id,job_id,stream,stashID,details
 86,u-eb386,apm.pp,34053,HOBr
 87,u-eb386,apm.pp,34099,Lumped Br as BrO
 88,u-eb386,apm.pp,34997,O(1D)
+89,u-eb386,apm.pp,34013,HONO
+90,u-eb386,apm.pp,34024,PPAN
+91,u-eb386,apm.pp,34029,ISON
+92,u-eb386,apm.pp,34035,NALD
+93,u-eb386,apm.pp,34058,N MASS MIXING RATIO AFTER TIMESTEP
+94,u-eb386,apm.pp,34017,PAN MASS MIXING RATIO AFTER TSTEP
+95,u-eb386,apm.pp,34032,MPAN MASS MIXING RATIO AFTER TSTEP
+96,u-eb386,apm.pp,34025,MeONO2 MASS MIXING RATIO AFTER TSTEP
+97,u-eb386,apm.pp,34098,LUMPED N (as NO2) MMR AFTER TIMESTEP
+98,u-eb386,apm.pp,51001,O3
+99,u-eb386,apm.pp,51002,NO
+100,u-eb386,apm.pp,51003,NO3
+101,u-eb386,apm.pp,51996,NO2 (not advected)
+102,u-eb386,apm.pp,51004,NO2 (advected)
+103,u-eb386,apm.pp,51005,N2O5
+104,u-eb386,apm.pp,51006,HO2NO2
+105,u-eb386,apm.pp,51007,HONO2
+106,u-eb386,apm.pp,51041,Cl
+107,u-eb386,apm.pp,51042,ClO
+108,u-eb386,apm.pp,51054,ClONO2
+109,u-eb386,apm.pp,51100,Cl_lumped_as_HCl
+110,u-eb386,apm.pp,51992,HCl

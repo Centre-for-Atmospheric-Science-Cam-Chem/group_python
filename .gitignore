@@ -1,4 +1,4 @@
-
+scripts/data_extraction/extract_pp_from_mass_convert/log/
 *.pyc
 *.out
 *.err

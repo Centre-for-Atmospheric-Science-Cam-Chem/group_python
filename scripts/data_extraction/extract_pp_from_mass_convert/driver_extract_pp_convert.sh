@@ -59,21 +59,18 @@ if [[ ! -f "$PATH_PROCESSING_QUEUE" ]]; then
     exit 1
 fi
 
-# Check for extra query and if query option is set
-if [[ "${EXTRACT_L_EXTRA_QUERY:-False}" == "True" ]]; then
-    if [[ -z "${EXTRACT_QUERY_OPTIONS:-}" ]]; then
-        echo "ERROR: EXTRACT_QUERY_OPTIONS is required when extra queries are enabled" >&2
-        exit 1
-    fi
+# Optional query options file; unset or "" means no extra query
+EXTRACT_QUERY_OPTIONS="${EXTRACT_QUERY_OPTIONS:-}"
 
+if [[ -n "$EXTRACT_QUERY_OPTIONS" ]]; then
     EXTRACT_QUERY_OPTIONS="$(resolve_workflow_path "$EXTRACT_QUERY_OPTIONS")"
-    export EXTRACT_QUERY_OPTIONS
 
     if [[ ! -f "$EXTRACT_QUERY_OPTIONS" ]]; then
         echo "ERROR: Query options file not found: $EXTRACT_QUERY_OPTIONS" >&2
         exit 1
     fi
 fi
+export EXTRACT_QUERY_OPTIONS
 
 # Check for sbatch
 if ! command -v sbatch >/dev/null 2>&1 && [[ "${JOB_L_BATCH:-False}" = "True" ]]; then

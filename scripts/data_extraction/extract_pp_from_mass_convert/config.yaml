@@ -2,7 +2,7 @@
 job:
   name: "extract_pp"
   l_batch: True
-  l_extract: True
+  l_extract: False
   l_copy_extracted: False
   l_convert: True
   l_copy_converted: False
@@ -12,27 +12,27 @@ slurm:
   account: "acsis"
   partition: "standard"
   qos: "short"
-  time: "10:00"
+  time: "1:00:00"
   memory: "2000"
 
 jobs:
-  array_range: "19"
+  array_range: "5"
 
 # Paths
 path:
   tmp_dir: "/work/scratch-pw5/vs480"
   extracted_save_dir: "/gws/nopw/j04/acsis/vs480/model_output" # optional. Use only if l_copy_downloaded=True or l_use_downloaded_save_dir=True
   converted_save_dir: "/gws/nopw/j04/acsis/vs480/model_output" # optional. Use only if l_copy_converted=True
-  processing_queue: "/home/users/vs480/git/group_python/informal/vs480/processing_queues/processing_queue_izzy-triple-hno3.csv" # absolute path or relative to working directory
+  processing_queue: "/home/users/vs480/git/group_python/informal/vs480/processing_queues/processing_queue_u-ed828.csv" # absolute path or relative to working directory
 
 # MASS extracting options
 extract:
-  l_extra_query: True
-  max_retries: 1 # optional
-  walltime: "30:00" # Maximum 24:00:00 . Choose lower walltime to get ahead in the queue ;)
-  query_options: "/home/users/vs480/git/group_python/scripts/data_extraction/extract_pp_from_mass_convert/query_options.txt" # optional. Use only if l_extra_query=True
+  max_retries: 2 # optional
+  walltime: "1:00:00" # Maximum 24:00:00 . Choose lower walltime to get ahead in the queue ;)
+  # query_options: "/home/users/vs480/git/group_python/scripts/data_extraction/extract_pp_from_mass_convert/query_options.txt" # optional. Omit or set to "" for no extra query
 
 # Processing options
 convert:
   l_use_extracted_save_dir: False # optional. For converting from pp files in downloaded_save_dir
   format: "nc" # 'nc' or 'zarr'. only 'nc' is available now
+  max_parallel: 10 # optional. Max conversion tasks running at once per stash (default 10)
